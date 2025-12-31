@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, abort
 import sqlite3
 
 app = Flask(__name__)
@@ -36,4 +36,14 @@ def home():
 def get_all_post():
     conn = get_db_connection()
     posts_data = conn.execute('SELECT * FROM posts').fetchall()
+    conn.close()
     return render_template("post/list_post.html", posts=posts_data)
+
+@app.route('/post/<int:post_id>', methods=['GET'])
+def get_post_route(post_id):
+    conn = get_db_connection()
+    post_data = conn.execute('SELECT * FROM posts WHERE id = ?', (post_id,)).fetchone()
+    conn.close()
+    if post_data is None:
+        abort(404)
+    return render_template('post/post.html', post=post_data)
