@@ -40,7 +40,7 @@ def get_all_post():
     return render_template("post/list_post.html", posts=posts_data)
 
 @app.route('/post/<int:post_id>', methods=['GET'])
-def get_post_route(post_id):
+def get_one_post(post_id):
     conn = get_db_connection()
     post_data = conn.execute('SELECT * FROM posts WHERE id = ?', (post_id,)).fetchone()
     conn.close()
@@ -61,7 +61,6 @@ def create_one_post():
         conn.commit()
         conn.close()
         return redirect(url_for('get_all_post'))
-
 
 @app.route ('/post/edit/<int:post_id>', methods= ['GET', 'POST'])
 def edit_one_post(post_id):
