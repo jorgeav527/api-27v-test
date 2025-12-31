@@ -32,7 +32,7 @@ def base():
 def home():
     return render_template("home.html")
 
-@app.route('/post', methods=['GET'])
+@app.route('/posts', methods=['GET'])
 def get_all_post():
     conn = get_db_connection()
     posts_data = conn.execute('SELECT * FROM posts').fetchall()
