@@ -7,4 +7,6 @@ requires-python = ">=3.10"
 dependencies = [
     "fastapi[standard]>=0.127.0",
     "flask>=3.1.2",
+    "flask-cors>=6.0.2",
+    "flask-socketio>=5.6.0",
 ]
